@@ -1,3 +1,4 @@
+@file:JvmName("JsonSnapshotUtils")
 package no.liflig.snapshot
 
 import kotlinx.serialization.ExperimentalSerializationApi
