@@ -1,4 +1,4 @@
-@file:JvmName("StringSnapshotUtils")
+@file:JvmName("StringSnapshot")
 package no.liflig.snapshot
 
 import com.github.difflib.DiffUtils
