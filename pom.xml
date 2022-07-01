@@ -21,7 +21,7 @@
     -->
     <kotlin.code.style>official</kotlin.code.style>
 
-    <kotlin.version>1.5.31</kotlin.version>
+    <kotlin.version>1.6.0</kotlin.version>
     <kotlinx-serialization.version>1.3.3</kotlinx-serialization.version>
   </properties>
 
@@ -37,10 +37,6 @@
       <id>capra-releases</id>
       <url>https://mvnrepo.capraconsulting.no/content/repositories/capra-releases</url>
     </repository>
-    <snapshotRepository>
-      <id>capra-snapshots</id>
-      <url>https://mvnrepo.capraconsulting.no/content/repositories/capra-snapshots</url>
-    </snapshotRepository>
   </distributionManagement>
 
   <dependencies>
