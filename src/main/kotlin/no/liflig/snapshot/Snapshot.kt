@@ -1,4 +1,5 @@
 @file:JvmName("StringSnapshot")
+
 package no.liflig.snapshot
 
 import com.github.difflib.DiffUtils
@@ -52,7 +53,7 @@ private fun createDiff(
 fun verifyStringSnapshot(
   name: String,
   value: String,
-  getExtra: ((previous: String, current: String) -> String?)? = null,
+  getExtra: ((previous: String, current: String) -> String?)? = null
 ) {
   verifySnapshot(name, value, getExtra) { existingValue: String, newValue: String ->
     assertEquals(existingValue, newValue)
@@ -63,7 +64,7 @@ internal fun verifySnapshot(
   name: String,
   value: String,
   getExtra: ((previous: String, current: String) -> String?)? = null,
-  assertSnapshot: (String, String) -> Unit,
+  assertSnapshot: (String, String) -> Unit
 ) {
   checkExpectedWorkingDirectory()
 
