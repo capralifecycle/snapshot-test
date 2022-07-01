@@ -31,7 +31,7 @@ private val shouldRegenerateFailed: Boolean
 
 private fun createDiff(
   original: List<String>,
-  new: List<String>
+  new: List<String>,
 ): String {
   val patch = DiffUtils.diff(original, new)
   val diff = UnifiedDiffUtils.generateUnifiedDiff(null, null, original, patch, 10)
@@ -53,7 +53,7 @@ private fun createDiff(
 fun verifyStringSnapshot(
   name: String,
   value: String,
-  getExtra: ((previous: String, current: String) -> String?)? = null
+  getExtra: ((previous: String, current: String) -> String?)? = null,
 ) {
   verifySnapshot(name, value, getExtra) { existingValue: String, newValue: String ->
     assertEquals(existingValue, newValue)
@@ -64,7 +64,7 @@ internal fun verifySnapshot(
   name: String,
   value: String,
   getExtra: ((previous: String, current: String) -> String?)? = null,
-  assertSnapshot: (String, String) -> Unit
+  assertSnapshot: (String, String) -> Unit,
 ) {
   checkExpectedWorkingDirectory()
 
