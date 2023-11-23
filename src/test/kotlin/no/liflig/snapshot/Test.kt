@@ -7,12 +7,12 @@ import kotlinx.serialization.json.add
 import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.io.File
 import java.time.Instant
-import kotlin.test.assertEquals
 
 class Test {
 
@@ -45,7 +45,7 @@ class Test {
       #####################################################################
     """.trimIndent() + '\n'
 
-    assertEquals(expectedErrorMessage, errorMessage)
+    Assertions.assertEquals(expectedErrorMessage, errorMessage)
   }
 
   @Test
@@ -110,7 +110,7 @@ class Test {
       verifyJsonSnapshot(snapshotName, valueUnexpected)
     }
 
-    assertEquals(expectedErrorMessage, errorMessage)
+    Assertions.assertEquals(expectedErrorMessage, errorMessage)
   }
 
   @Test
@@ -152,7 +152,7 @@ class Test {
       verifyJsonSnapshot(snapshotName, valueUnexpected)
     }
 
-    assertEquals(expectedErrorMessage, errorMessage)
+    Assertions.assertEquals(expectedErrorMessage, errorMessage)
   }
 
   @Test
@@ -236,7 +236,7 @@ class Test {
       verifyJsonSnapshot(snapshotName, valueUnexpected, ignoredPaths)
     }
 
-    assertEquals(expectedErrorMessage, errorMessage)
+    Assertions.assertEquals(expectedErrorMessage, errorMessage)
   }
 
   @Nested
@@ -247,10 +247,10 @@ class Test {
       val snapshotPath = File("src/test/resources/__snapshots__", snapshotName)
 
       snapshotPath.deleteBeforeAndAfter {
-        assertEquals(false, snapshotPath.exists())
+        Assertions.assertEquals(false, snapshotPath.exists())
         withRegenerateDisabled {
           verifyStringSnapshot(snapshotName, "hello world")
-          assertEquals(true, snapshotPath.exists())
+          Assertions.assertEquals(true, snapshotPath.exists())
         }
       }
     }
@@ -269,7 +269,7 @@ class Test {
           }
         }
 
-        assertEquals("hello world", snapshotPath.readText())
+        Assertions.assertEquals("hello world", snapshotPath.readText())
       }
     }
   }
@@ -282,10 +282,10 @@ class Test {
       val snapshotPath = File("src/test/resources/__snapshots__", snapshotName)
 
       snapshotPath.deleteBeforeAndAfter {
-        assertEquals(false, snapshotPath.exists())
+        Assertions.assertEquals(false, snapshotPath.exists())
         withRegenerateOnlyAll {
           verifyStringSnapshot(snapshotName, "hello world")
-          assertEquals(true, snapshotPath.exists())
+          Assertions.assertEquals(true, snapshotPath.exists())
         }
       }
     }
@@ -302,7 +302,7 @@ class Test {
           verifyStringSnapshot(snapshotName, "another value")
         }
 
-        assertEquals("another value", snapshotPath.readText())
+        Assertions.assertEquals("another value", snapshotPath.readText())
       }
     }
   }
@@ -315,10 +315,10 @@ class Test {
       val snapshotPath = File("src/test/resources/__snapshots__", snapshotName)
 
       snapshotPath.deleteBeforeAndAfter {
-        assertEquals(false, snapshotPath.exists())
+        Assertions.assertEquals(false, snapshotPath.exists())
         withRegenerateOnlyFailure {
           verifyStringSnapshot(snapshotName, "hello world")
-          assertEquals(true, snapshotPath.exists())
+          Assertions.assertEquals(true, snapshotPath.exists())
         }
       }
     }
@@ -335,7 +335,7 @@ class Test {
           verifyStringSnapshot(snapshotName, "another value")
         }
 
-        assertEquals("another value", snapshotPath.readText())
+        Assertions.assertEquals("another value", snapshotPath.readText())
       }
     }
 
@@ -367,7 +367,7 @@ class Test {
           verifyJsonSnapshot(snapshotName, value2, ignoredPaths)
         }
 
-        assertEquals(value1, snapshotPath.readText())
+        Assertions.assertEquals(value1, snapshotPath.readText())
       }
     }
   }

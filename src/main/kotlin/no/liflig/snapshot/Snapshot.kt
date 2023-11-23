@@ -4,8 +4,8 @@ package no.liflig.snapshot
 
 import com.github.difflib.DiffUtils
 import com.github.difflib.UnifiedDiffUtils
+import org.junit.jupiter.api.Assertions
 import java.io.File
-import kotlin.test.assertEquals
 
 internal const val REGENERATE_SNAPSHOTS = "REGENERATE_SNAPSHOTS"
 internal const val REGENERATE_FAILED_SNAPSHOTS = "REGENERATE_FAILED_SNAPSHOTS"
@@ -56,7 +56,7 @@ fun verifyStringSnapshot(
   getExtra: ((previous: String, current: String) -> String?)? = null,
 ) {
   verifySnapshot(name, value, getExtra) { existingValue: String, newValue: String ->
-    assertEquals(existingValue, newValue)
+    Assertions.assertEquals(existingValue, newValue)
   }
 }
 
