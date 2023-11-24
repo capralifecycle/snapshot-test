@@ -53,7 +53,11 @@ fun <T> withRegenerateOnlyFailure(block: () -> T): T =
     }
   }
 
-private fun <T> withSystemProperty(name: String, overriddenValue: String?, block: () -> T): T {
+private fun <T> withSystemProperty(
+  name: String,
+  overriddenValue: String?,
+  block: () -> T,
+): T {
   val originalValue = System.getProperty(name)
   setSystemProperty(name, overriddenValue)
   try {
@@ -66,7 +70,10 @@ private fun <T> withSystemProperty(name: String, overriddenValue: String?, block
 /**
  * Set a specific system property. For null values the system property is removed instead.
  */
-private fun setSystemProperty(name: String, value: String?) {
+private fun setSystemProperty(
+  name: String,
+  value: String?,
+) {
   if (value == null) {
     System.clearProperty(name)
   } else {
