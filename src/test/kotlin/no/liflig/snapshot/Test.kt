@@ -15,7 +15,6 @@ import java.io.File
 import java.time.Instant
 
 class Test {
-
   @Test
   fun testStringSnapshot() {
     val snapshotName = "String.txt"
@@ -25,11 +24,13 @@ class Test {
 
     verifyStringSnapshot(snapshotName, valueToSnapshot)
 
-    val errorMessage = assertNegative {
-      verifyStringSnapshot(snapshotName, valueUnexpected)
-    }
+    val errorMessage =
+      assertNegative {
+        verifyStringSnapshot(snapshotName, valueUnexpected)
+      }
 
-    val expectedErrorMessage = """
+    val expectedErrorMessage =
+      """
       #####################################################################
 
       Snapshot [String.txt] failed - recreate all snapshots by setting system property REGENERATE_SNAPSHOTS to true
@@ -43,7 +44,7 @@ class Test {
       +Some other text
 
       #####################################################################
-    """.trimIndent() + '\n'
+      """.trimIndent() + '\n'
 
     Assertions.assertEquals(expectedErrorMessage, errorMessage)
   }
@@ -52,27 +53,30 @@ class Test {
   fun testJsonSnapshotByJsonElement() {
     val snapshotName = "JsonByJsonElement.json"
 
-    val valueToSnapshot = buildJsonObject {
-      put(
-        "a",
-        buildJsonArray {
-          add(1)
-          add(2)
-        }
-      )
-    }
+    val valueToSnapshot =
+      buildJsonObject {
+        put(
+          "a",
+          buildJsonArray {
+            add(1)
+            add(2)
+          },
+        )
+      }
 
-    val valueUnexpected = buildJsonObject {
-      put(
-        "a",
-        buildJsonArray {
-          add(2)
-          add(1)
-        }
-      )
-    }
+    val valueUnexpected =
+      buildJsonObject {
+        put(
+          "a",
+          buildJsonArray {
+            add(2)
+            add(1)
+          },
+        )
+      }
 
-    val expectedErrorMessage = """
+    val expectedErrorMessage =
+      """
       #####################################################################
 
       Snapshot [JsonByJsonElement.json] failed - recreate all snapshots by setting system property REGENERATE_SNAPSHOTS to true
@@ -102,13 +106,14 @@ class Test {
 
 
       #####################################################################
-    """.trimIndent() + '\n'
+      """.trimIndent() + '\n'
 
     verifyJsonSnapshot(snapshotName, valueToSnapshot)
 
-    val errorMessage = assertNegative {
-      verifyJsonSnapshot(snapshotName, valueUnexpected)
-    }
+    val errorMessage =
+      assertNegative {
+        verifyJsonSnapshot(snapshotName, valueUnexpected)
+      }
 
     Assertions.assertEquals(expectedErrorMessage, errorMessage)
   }
@@ -121,7 +126,8 @@ class Test {
 
     val valueUnexpected = """{"a": "hello", "b": "world"}"""
 
-    val expectedErrorMessage = """
+    val expectedErrorMessage =
+      """
       #####################################################################
 
       Snapshot [JsonByString.json] failed - recreate all snapshots by setting system property REGENERATE_SNAPSHOTS to true
@@ -144,13 +150,14 @@ class Test {
 
 
       #####################################################################
-    """.trimIndent() + '\n'
+      """.trimIndent() + '\n'
 
     verifyJsonSnapshot(snapshotName, valueToSnapshot)
 
-    val errorMessage = assertNegative {
-      verifyJsonSnapshot(snapshotName, valueUnexpected)
-    }
+    val errorMessage =
+      assertNegative {
+        verifyJsonSnapshot(snapshotName, valueUnexpected)
+      }
 
     Assertions.assertEquals(expectedErrorMessage, errorMessage)
   }
@@ -162,34 +169,37 @@ class Test {
     val timestamp1 = Instant.parse("2021-04-08T14:30:00.123Z")
     val timestamp2 = Instant.parse("2021-03-02T14:30:00.456Z")
 
-    val valueToSnapshot1 = buildJsonObject {
-      put(
-        "a",
-        buildJsonObject {
-          put("name", "dev developersen")
-          put("timestamp", timestamp1.toString())
-        }
-      )
-      put("b", 1234)
-    }
+    val valueToSnapshot1 =
+      buildJsonObject {
+        put(
+          "a",
+          buildJsonObject {
+            put("name", "dev developersen")
+            put("timestamp", timestamp1.toString())
+          },
+        )
+        put("b", 1234)
+      }
 
-    val valueToSnapshot2 = buildJsonObject {
-      put(
-        "a",
-        buildJsonObject {
-          put("name", "dev developersen")
-          // Notice different timestamp!
-          put("timestamp", timestamp2.toString())
-        }
-      )
-      put("b", 1234)
-    }
+    val valueToSnapshot2 =
+      buildJsonObject {
+        put(
+          "a",
+          buildJsonObject {
+            put("name", "dev developersen")
+            // Notice different timestamp!
+            put("timestamp", timestamp2.toString())
+          },
+        )
+        put("b", 1234)
+      }
 
     val valueUnexpected = JsonObject(valueToSnapshot2 + buildJsonObject { put("b", 4321) })
 
     val ignoredPaths = listOf("a.timestamp")
 
-    val expectedErrorMessage = """
+    val expectedErrorMessage =
+      """
       #####################################################################
 
       Snapshot [JsonWithIgnoredPath.json] failed - recreate all snapshots by setting system property REGENERATE_SNAPSHOTS to true
@@ -220,7 +230,7 @@ class Test {
 
 
       #####################################################################
-    """.trimIndent() + '\n'
+      """.trimIndent() + '\n'
 
     // Setup a deterministic (stable) snapshot so it will not change on regeneration.
     verifyJsonSnapshot(snapshotName, valueToSnapshot1)
@@ -232,9 +242,10 @@ class Test {
     }
 
     // Check that it can still fail.
-    val errorMessage = assertNegative {
-      verifyJsonSnapshot(snapshotName, valueUnexpected, ignoredPaths)
-    }
+    val errorMessage =
+      assertNegative {
+        verifyJsonSnapshot(snapshotName, valueUnexpected, ignoredPaths)
+      }
 
     Assertions.assertEquals(expectedErrorMessage, errorMessage)
   }
@@ -344,19 +355,21 @@ class Test {
       val snapshotName = "Snapshot.json"
       val snapshotPath = File("src/test/resources/__snapshots__", snapshotName)
 
-      val value1 = """
+      val value1 =
+        """
         {
           "name": "hello world",
           "version": "1"
         }
-      """.trimIndent() + '\n'
+        """.trimIndent() + '\n'
 
-      val value2 = """
+      val value2 =
+        """
         {
           "name": "hello world",
           "version": "2"
         }
-      """.trimIndent() + '\n'
+        """.trimIndent() + '\n'
 
       val ignoredPaths = listOf("version")
 

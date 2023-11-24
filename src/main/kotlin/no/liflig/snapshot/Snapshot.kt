@@ -107,25 +107,26 @@ internal fun verifySnapshot(
   } catch (e: AssertionError) {
     val diff = createDiff(existingValue.lines(), value.lines())
 
-    val extra = getExtra?.invoke(existingValue, value)?.let {
-      "$it\n\n"
-    } ?: ""
+    val extra =
+      getExtra?.invoke(existingValue, value)?.let {
+        "$it\n\n"
+      } ?: ""
 
     System.err.println(
       """
-#####################################################################
-
-Snapshot [$name] failed - recreate all snapshots by setting system property $REGENERATE_SNAPSHOTS to true
-Example: mvn test -DREGENERATE_SNAPSHOTS=true
-Only recreate failed snapshots by setting system property $REGENERATE_FAILED_SNAPSHOTS to true instead
-Example: mvn test -DREGENERATE_FAILED_SNAPSHOTS=true
-
-${extra}Diff:
-
-$diff
-
-#####################################################################
-      """.trimIndent()
+      |#####################################################################
+      |
+      |Snapshot [$name] failed - recreate all snapshots by setting system property $REGENERATE_SNAPSHOTS to true
+      |Example: mvn test -DREGENERATE_SNAPSHOTS=true
+      |Only recreate failed snapshots by setting system property $REGENERATE_FAILED_SNAPSHOTS to true instead
+      |Example: mvn test -DREGENERATE_FAILED_SNAPSHOTS=true
+      |
+      |${extra}Diff:
+      |
+      |$diff
+      |
+      |#####################################################################
+      """.trimMargin(),
     )
 
     throw AssertionError("Snapshot [$name] doesn't match")
