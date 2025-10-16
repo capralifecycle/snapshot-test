@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <parent>
+    <groupId>no.liflig</groupId>
+    <artifactId>kotlin-parent</artifactId>
+    <version>3.20251016.053254</version>
+  </parent>
+
+  <!--suppress MavenRedundantGroupId -->
   <groupId>no.liflig</groupId>
   <artifactId>snapshot-test</artifactId>
   <packaging>jar</packaging>
@@ -14,23 +21,16 @@
     <revision>${major-version}.local-SNAPSHOT</revision>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-    <!--
-      Make IntelliJ use preferred Code Style.
-      See https://kotlinlang.org/docs/reference/code-style-migration-guide.html
-    -->
-    <kotlin.code.style>official</kotlin.code.style>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <kotlin.version>2.2.20</kotlin.version>
-    <kotlinx-serialization.version>1.9.0</kotlinx-serialization.version>
-  </properties>
+    <java.version>17</java.version>
 
-  <scm>
-    <developerConnection>scm:git:https://github.com/capralifecycle/snapshot-test.git</developerConnection>
-    <connection>scm:git:https://github.com/capralifecycle/snapshot-test.git</connection>
-    <url>https://github.com/capralifecycle/snapshot-test</url>
-    <tag>HEAD</tag>
-  </scm>
+    <kotlinx-serialization.version>1.9.0</kotlinx-serialization.version>
+    <jsonassert.version>1.5.3</jsonassert.version>
+    <junit.version>6.0.0</junit.version>
+    <java-diff-utils.version>4.16</java-diff-utils.version>
+  </properties>
 
   <dependencies>
     <dependency>
@@ -46,93 +46,59 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <version>5.13.4</version>
+      <version>${junit.version}</version>
     </dependency>
     <dependency>
       <groupId>org.skyscreamer</groupId>
       <artifactId>jsonassert</artifactId>
-      <version>1.5.3</version>
+      <version>${jsonassert.version}</version>
     </dependency>
     <dependency>
       <groupId>io.github.java-diff-utils</groupId>
       <artifactId>java-diff-utils</artifactId>
-      <version>4.16</version>
+      <version>${java-diff-utils.version}</version>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>5.13.4</version>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
 
+  <scm>
+    <developerConnection>scm:git:https://github.com/capralifecycle/snapshot-test.git
+    </developerConnection>
+    <connection>scm:git:https://github.com/capralifecycle/snapshot-test.git</connection>
+    <url>https://github.com/capralifecycle/snapshot-test</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <repositories>
+    <repository>
+      <id>github</id>
+      <url>https://maven.pkg.github.com/capralifecycle/*</url>
+    </repository>
+  </repositories>
+
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <url>https://maven.pkg.github.com/capralifecycle/snapshot-test</url>
+    </repository>
+  </distributionManagement>
+
   <build>
     <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
     <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-clean-plugin</artifactId>
-          <version>3.5.0</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.14.0</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-deploy-plugin</artifactId>
-          <version>3.1.4</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-install-plugin</artifactId>
-          <version>3.1.4</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.4.2</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>3.3.1</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
+
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.5.4</version>
-      </plugin>
-      <plugin>
+        <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-maven-plugin</artifactId>
         <version>${kotlin.version}</version>
-        <executions>
-          <execution>
-            <id>compile</id>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>test-compile</id>
-            <goals>
-              <goal>test-compile</goal>
-            </goals>
-          </execution>
-        </executions>
-        <groupId>org.jetbrains.kotlin</groupId>
         <configuration>
-          <args>
-            <arg>-Xjsr305=strict</arg>
-            <arg>-Xopt-in=kotlin.RequiresOptIn</arg>
-          </args>
-          <jvmTarget>11</jvmTarget>
+          <jvmTarget>${java.version}</jvmTarget>
           <compilerPlugins>
             <plugin>kotlinx-serialization</plugin>
           </compilerPlugins>
@@ -144,11 +110,61 @@
             <version>${kotlin.version}</version>
           </dependency>
         </dependencies>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <phase>compile</phase>
+          </execution>
+          <execution>
+            <id>test-compile</id>
+            <goals>
+              <goal>test-compile</goal>
+            </goals>
+            <phase>test-compile</phase>
+          </execution>
+        </executions>
       </plugin>
+
+      <!-- Testing -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
+      </plugin>
+
+      <!-- Plugin for enforcing proper dependency management -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>${maven-enforcer-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>enforce</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <banDuplicatePomDependencyVersions/>
+                <dependencyConvergence/>
+                <requireUpperBoundDeps/>
+                <banDynamicVersions>
+                  <allowSnapshots>true</allowSnapshots>
+                </banDynamicVersions>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Inlines variables in published POM -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>flatten-maven-plugin</artifactId>
-        <version>1.7.2</version>
+        <version>${flatten-maven-plugin.version}</version>
         <configuration>
           <updatePomFile>true</updatePomFile>
           <flattenMode>resolveCiFriendliesOnly</flattenMode>
@@ -166,19 +182,6 @@
             <phase>clean</phase>
             <goals>
               <goal>clean</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>com.github.gantsign.maven</groupId>
-        <artifactId>ktlint-maven-plugin</artifactId>
-        <version>3.5.0</version>
-        <executions>
-          <execution>
-            <id>check</id>
-            <goals>
-              <goal>check</goal>
             </goals>
           </execution>
         </executions>
