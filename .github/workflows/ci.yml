@@ -68,7 +68,7 @@ jobs:
 
         run: |
           if [ "$CONDITIONAL_RELEASE" = "true" ]; then
-            echo "ve '$TAG'"
+            echo "Releasing library with tag '$TAG'"
             mvn -B source:jar deploy scm:tag -Drevision="$TAG" -Dtag="$TAG" \
               org.apache.maven.plugins:maven-enforcer-plugin:3.0.0-M3:enforce -Drules=requireReleaseDeps
           else
