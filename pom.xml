@@ -7,7 +7,7 @@
   <parent>
     <groupId>no.liflig</groupId>
     <artifactId>kotlin-parent</artifactId>
-    <version>3.20251016.053254</version>
+    <version>3.20251115.153112</version>
   </parent>
 
   <!--suppress MavenRedundantGroupId -->
@@ -23,12 +23,12 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-    <kotlin.version>2.2.20</kotlin.version>
+    <kotlin.version>2.2.21</kotlin.version>
     <java.version>17</java.version>
 
     <kotlinx-serialization.version>1.9.0</kotlinx-serialization.version>
     <jsonassert.version>1.5.3</jsonassert.version>
-    <junit.version>6.0.0</junit.version>
+    <junit.version>6.0.1</junit.version>
     <java-diff-utils.version>4.16</java-diff-utils.version>
   </properties>
 
