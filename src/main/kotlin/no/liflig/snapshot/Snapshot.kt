@@ -111,10 +111,12 @@ internal fun verifySnapshot(
         """
       |#####################################################################
       |
-      |Snapshot [$name] failed - recreate all snapshots by setting system property $REGENERATE_SNAPSHOTS to true
-      |Example: mvn test -DREGENERATE_SNAPSHOTS=true
-      |Only recreate failed snapshots by setting system property $REGENERATE_FAILED_SNAPSHOTS to true instead
-      |Example: mvn test -DREGENERATE_FAILED_SNAPSHOTS=true
+      |Snapshot [$name] failed.
+      |Preferred - recreate only failed snapshots (honors ignoredPaths, no churn on unrelated snapshots):
+      |  mvn test -D$REGENERATE_FAILED_SNAPSHOTS=true
+      |Mass refresh - recreate all snapshots (bypasses the comparison and ignoredPaths; rewrites
+      |non-deterministic snapshots on every run):
+      |  mvn test -D$REGENERATE_SNAPSHOTS=true
       |
       |${extra}Diff:
       |
