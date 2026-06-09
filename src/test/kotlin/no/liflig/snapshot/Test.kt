@@ -30,10 +30,12 @@ class Test {
         """
         #####################################################################
 
-        Snapshot [String.txt] failed - recreate all snapshots by setting system property REGENERATE_SNAPSHOTS to true
-        Example: mvn test -DREGENERATE_SNAPSHOTS=true
-        Only recreate failed snapshots by setting system property REGENERATE_FAILED_SNAPSHOTS to true instead
-        Example: mvn test -DREGENERATE_FAILED_SNAPSHOTS=true
+        Snapshot [String.txt] failed.
+        Preferred - recreate only failed snapshots (honors ignoredPaths, no churn on unrelated snapshots):
+          mvn test -DREGENERATE_FAILED_SNAPSHOTS=true
+        Mass refresh - recreate all snapshots (bypasses the comparison and ignoredPaths; rewrites
+        non-deterministic snapshots on every run):
+          mvn test -DREGENERATE_SNAPSHOTS=true
 
         Diff:
 
@@ -75,10 +77,12 @@ class Test {
         """
         #####################################################################
 
-        Snapshot [JsonByJsonElement.json] failed - recreate all snapshots by setting system property REGENERATE_SNAPSHOTS to true
-        Example: mvn test -DREGENERATE_SNAPSHOTS=true
-        Only recreate failed snapshots by setting system property REGENERATE_FAILED_SNAPSHOTS to true instead
-        Example: mvn test -DREGENERATE_FAILED_SNAPSHOTS=true
+        Snapshot [JsonByJsonElement.json] failed.
+        Preferred - recreate only failed snapshots (honors ignoredPaths, no churn on unrelated snapshots):
+          mvn test -DREGENERATE_FAILED_SNAPSHOTS=true
+        Mass refresh - recreate all snapshots (bypasses the comparison and ignoredPaths; rewrites
+        non-deterministic snapshots on every run):
+          mvn test -DREGENERATE_SNAPSHOTS=true
 
         Error(s):
         a[0]
@@ -124,10 +128,12 @@ class Test {
         """
         #####################################################################
 
-        Snapshot [JsonByString.json] failed - recreate all snapshots by setting system property REGENERATE_SNAPSHOTS to true
-        Example: mvn test -DREGENERATE_SNAPSHOTS=true
-        Only recreate failed snapshots by setting system property REGENERATE_FAILED_SNAPSHOTS to true instead
-        Example: mvn test -DREGENERATE_FAILED_SNAPSHOTS=true
+        Snapshot [JsonByString.json] failed.
+        Preferred - recreate only failed snapshots (honors ignoredPaths, no churn on unrelated snapshots):
+          mvn test -DREGENERATE_FAILED_SNAPSHOTS=true
+        Mass refresh - recreate all snapshots (bypasses the comparison and ignoredPaths; rewrites
+        non-deterministic snapshots on every run):
+          mvn test -DREGENERATE_SNAPSHOTS=true
 
         Error(s):
 
@@ -192,10 +198,12 @@ class Test {
         """
         #####################################################################
 
-        Snapshot [JsonWithIgnoredPath.json] failed - recreate all snapshots by setting system property REGENERATE_SNAPSHOTS to true
-        Example: mvn test -DREGENERATE_SNAPSHOTS=true
-        Only recreate failed snapshots by setting system property REGENERATE_FAILED_SNAPSHOTS to true instead
-        Example: mvn test -DREGENERATE_FAILED_SNAPSHOTS=true
+        Snapshot [JsonWithIgnoredPath.json] failed.
+        Preferred - recreate only failed snapshots (honors ignoredPaths, no churn on unrelated snapshots):
+          mvn test -DREGENERATE_FAILED_SNAPSHOTS=true
+        Mass refresh - recreate all snapshots (bypasses the comparison and ignoredPaths; rewrites
+        non-deterministic snapshots on every run):
+          mvn test -DREGENERATE_SNAPSHOTS=true
 
         Error(s):
         a.timestamp
