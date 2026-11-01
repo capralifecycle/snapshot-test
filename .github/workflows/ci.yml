@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+      - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
         with:
           distribution: "zulu"
           java-version: "21.0.5"
@@ -44,7 +44,7 @@ jobs:
           }
           echo "major-version=$major_version" >> "$GITHUB_OUTPUT"
 
-      - uses: capralifecycle/actions-lib/generate-tag@c3fd36456df3f98ebd08396164a1a995f850c118 # v1.21.1
+      - uses: capralifecycle/actions-lib/generate-tag@090f14b4d0f4179c2d64e1351e479ff17689485d # v1.21.2
         id: tag
         with:
           tag-prefix: "${{ steps.prep.outputs.major-version }}"
